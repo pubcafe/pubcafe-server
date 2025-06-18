@@ -1,0 +1,21 @@
+spring:
+  profiles:
+    active: local
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    defer-datasource-initialization: false
+    properties:
+      hibernate:
+        default_batch_fetch_size: 100
+
+logging:
+  level:
+    root: info
+
+springdoc:
+  swagger-ui:
+    display-request-duration: true
+    operationsSorter: method
+    tags-sorter: alpha
