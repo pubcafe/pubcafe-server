@@ -1,4 +1,4 @@
-package com.pubcafe.core.entity
+package com.pubcafe.api.entity
 
 import jakarta.persistence.*
 import java.time.LocalDateTime

@@ -1,4 +1,4 @@
-package com.pubcafe.core
+package com.pubcafe.api
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
