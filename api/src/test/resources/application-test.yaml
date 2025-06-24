@@ -1,0 +1,16 @@
+oauth:
+  client:
+    google:
+      credentials:
+        client-id: test-google-client-id
+        client-secret: test-google-client-secret
+        redirect-uri: http://localhost:8080/oauth/callback
+      provider:
+        uri:
+          user-info: https://www.googleapis.com/oauth2/v2/userinfo
+          token: https://oauth2.googleapis.com/token
+
+jwt:
+  secret-key: test-jwt-secret-key-for-testing-only
+  access-expiration-time: 1800000       # 30분
+  refresh-expiration-time: 604800000    # 1주
