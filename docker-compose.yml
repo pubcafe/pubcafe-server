@@ -1,0 +1,13 @@
+services:
+  app:
+    image: leechanmi/pubcafe-api:latest
+    container_name: pubcafe-api-server
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    networks:
+      - pubcafe-net
+
+networks:
+  pubcafe-net:

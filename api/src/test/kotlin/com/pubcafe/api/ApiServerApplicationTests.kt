@@ -1,4 +1,4 @@
-package com.pubcafe.core
+package com.pubcafe.api
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Import
 
 @Import(TestcontainersConfiguration::class)
 @SpringBootTest
-class ServerApplicationTests {
+class ApiServerApplicationTests {
 
 	@Test
 	fun contextLoads() {

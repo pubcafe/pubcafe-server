@@ -1,25 +1,33 @@
 package com.pubcafe.core.entity
 
+import com.pubcafe.core.entity.common.BaseTimeEntity
 import jakarta.persistence.*
-import java.time.LocalDateTime
 
 @Entity
 @Table(name = "member")
 class Member(
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
+    val id: Long? = null,
 
-    @Column(nullable = false)
-    var name: String,
+    @Column(name = "name")
+    var name: String? = null,
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     var email: String,
 
-    @Column(name = "created_at", nullable = false)
-    val createdAt: LocalDateTime = LocalDateTime.now(),
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    var role: MemberRole
 
-    @Column(name = "updated_at", nullable = false)
-    var updatedAt: LocalDateTime = LocalDateTime.now()
-)
+) : BaseTimeEntity() {
+
+    companion object {
+        fun createNew(email: String): Member {
+            return Member(
+                email = email,
+                role = MemberRole.NEW_MEMBER
+            )
+        }
+    }
+}
