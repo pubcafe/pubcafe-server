@@ -213,3 +213,10 @@ gradle-app.setting
 *.hprof
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,intellij+all,java,kotlin,gradle
+
+### secret
+**secret.properties
+
+### bat
+# docker
+docker-image-push.bat
