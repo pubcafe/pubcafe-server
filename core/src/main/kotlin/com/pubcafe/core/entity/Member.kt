@@ -13,6 +13,9 @@ class Member(
     @Column(name = "name")
     var name: String? = null,
 
+    @Column(name = "nickname")
+    var nickname: String? = null,
+
     @Column(name = "email", nullable = false, unique = true)
     var email: String,
 
