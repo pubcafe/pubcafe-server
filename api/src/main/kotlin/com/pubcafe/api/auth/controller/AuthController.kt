@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @Tag(name = "auth", description = "인증")
-@RestController
 @RequestMapping("/api/auth")
+@RestController
 class AuthController(
     private val oAuthService: OAuthService
 ) {
