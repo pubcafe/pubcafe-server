@@ -3,7 +3,7 @@ package com.pubcafe.api.auth.util
 import com.pubcafe.api.auth.exception.ExpiredJwtTokenException
 import com.pubcafe.api.auth.exception.InvalidJwtTokenException
 import com.pubcafe.api.auth.model.JwtProperties
-import com.pubcafe.core.entity.MemberRole
+import com.pubcafe.core.domain.member.MemberRole
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jws
 import io.jsonwebtoken.Jwts
@@ -14,7 +14,7 @@ import javax.crypto.SecretKey
 
 @Component
 class JwtProvider(
-    val jwtProperties: JwtProperties
+    private val jwtProperties: JwtProperties
 ) {
     private val secretKey: SecretKey = Keys.hmacShaKeyFor(jwtProperties.secretKey.toByteArray())
 
@@ -62,5 +62,9 @@ class JwtProvider(
 
     fun getMemberId(token: String): Long {
         return parseClaims(token).payload.subject.toLong()
+    }
+
+    fun getMemberRole(token: String): MemberRole {
+        return MemberRole.valueOf(parseClaims(token).payload["role"].toString())
     }
 }

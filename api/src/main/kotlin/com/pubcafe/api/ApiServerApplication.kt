@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 @SpringBootApplication
 @EnableJpaAuditing
 @ConfigurationPropertiesScan
-@EntityScan(basePackages = ["com.pubcafe.core.entity"])
+@EntityScan(basePackages = ["com.pubcafe.core.domain"])
 class ServerApplication
 
 fun main(args: Array<String>) {

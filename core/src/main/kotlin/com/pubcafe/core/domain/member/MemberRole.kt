@@ -1,4 +1,4 @@
-package com.pubcafe.core.entity
+package com.pubcafe.core.domain.member
 
 enum class MemberRole {
     NEW_MEMBER,
