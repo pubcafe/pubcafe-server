@@ -1,21 +1,19 @@
 package com.pubcafe.api.common.model
 
-import com.fasterxml.jackson.annotation.JsonInclude
-
-@JsonInclude(JsonInclude.Include.NON_NULL)
 data class ResponseForm<T>(
     val code: String,
     val message: String,
-    val data: T? = null
+    val data: T
 ) {
     companion object {
         /**
          * 성공
          */
-        fun success(code: ResponseCode): ResponseForm<Nothing?> {
+        fun success(code: ResponseCode): ResponseForm<Unit> {
             return ResponseForm(
                 code = code.name,
-                message = code.message
+                message = code.message,
+                data = Unit
             )
         }
 
@@ -30,10 +28,11 @@ data class ResponseForm<T>(
         /**
          * 실패
          */
-        fun fail(code: ResponseCode): ResponseForm<Nothing?> {
+        fun fail(code: ResponseCode, message: String): ResponseForm<Unit> {
             return ResponseForm(
                 code = code.name,
-                message = code.message
+                message = message,
+                data = Unit
             )
         }
     }
