@@ -4,6 +4,7 @@ import com.pubcafe.core.converter.LanguageCodeListConverter
 import com.pubcafe.core.converter.LinkListConverter
 import com.pubcafe.core.domain.common.BaseTimeEntity
 import com.pubcafe.core.domain.common.CountryCode
+import com.pubcafe.core.domain.common.Gender
 import com.pubcafe.core.domain.common.LanguageCode
 import com.pubcafe.core.domain.member.dto.ProfileCreateForm
 import jakarta.persistence.*
@@ -25,13 +26,18 @@ class MemberProfile(
     @Column(nullable = false, unique = true)
     var alias: String,
 
-    @Comment("공개 이름")
+    @Comment("표시 이름")
     @Column(name = "display_name", length = 32, nullable = false)
     var displayName: String,
 
     @Comment("소개글")
     @Column(name = "introduction", length = 256)
     var introduction: String?,
+
+    @Comment("성별")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender", nullable = false)
+    var gender: Gender,
 
     @Comment("국적")
     @Enumerated(EnumType.STRING)
@@ -40,25 +46,24 @@ class MemberProfile(
 
     @Comment("연락처")
     @Column(name = "contact", nullable = false)
-    var contact: String?,
+    var contact: String,
 
     @Comment("사용 가능 언어")
-    @Enumerated(EnumType.STRING)
     @Convert(converter = LanguageCodeListConverter::class)
-    @Column(name = "languages")
-    var languages: List<LanguageCode> = emptyList(),
+    @Column(name = "languages", nullable = false)
+    var languages: List<LanguageCode>,
 
     @Comment("관련 링크")
     @Convert(converter = LinkListConverter::class)
     @Column(name = "links")
-    var links: List<String> = emptyList(),
+    var links: List<String>,
 
     @Comment("프로필 이미지 URL")
-    @Column(name = "profile_image_url", nullable = false)
+    @Column(name = "profile_image_url")
     var profileImage: String?,
 
     @Comment("배너 이미지 URL")
-    @Column(name = "banner_image_url", nullable = false)
+    @Column(name = "banner_image_url")
     var bannerImage: String?
 
 ) : BaseTimeEntity() {
@@ -70,10 +75,11 @@ class MemberProfile(
                 alias = form.alias,
                 displayName = form.displayName,
                 introduction = form.introduction,
+                gender = form.gender,
                 country = form.country,
                 contact = form.contact,
                 languages = form.languages,
-                links = form.links,
+                links = form.links ?: emptyList(),
                 profileImage = form.profileImage,
                 bannerImage = form.bannerImage
             )

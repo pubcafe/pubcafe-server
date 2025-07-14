@@ -1,6 +1,7 @@
 package com.pubcafe.api.member.dto
 
 import com.pubcafe.core.domain.common.CountryCode
+import com.pubcafe.core.domain.common.Gender
 import com.pubcafe.core.domain.common.LanguageCode
 
 data class MemberProfileRes(
@@ -8,6 +9,7 @@ data class MemberProfileRes(
     val alias: String?,
     val displayName: String?,
     val introduction: String?,
+    val gender: Gender?,
     val country: CountryCode?,
     val contact: String?,
     val languages: List<LanguageCode>?,

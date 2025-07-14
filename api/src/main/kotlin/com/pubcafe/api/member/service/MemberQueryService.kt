@@ -29,6 +29,7 @@ class MemberQueryService(
             alias = profile?.alias,
             displayName = profile?.displayName,
             introduction = profile?.introduction,
+            gender = profile?.gender,
             country = profile?.country,
             contact = profile?.contact,
             languages = profile?.languages,
