@@ -12,7 +12,7 @@ class Member(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
-    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true)
+    @OneToOne(mappedBy = "member", cascade = [CascadeType.ALL], orphanRemoval = true)
     var profile: MemberProfile? = null,
 
     @Comment("이메일")
@@ -22,9 +22,13 @@ class Member(
     @Comment("권한")
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    val role: MemberRole
+    var role: MemberRole
 
 ) : BaseTimeEntity() {
+
+    fun convertToMember() {
+        this.role = MemberRole.MEMBER
+    }
 
     companion object {
         fun create(email: String): Member {
