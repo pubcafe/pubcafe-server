@@ -4,7 +4,6 @@ import com.pubcafe.api.auth.dto.LoginResultDto
 import com.pubcafe.api.auth.exception.UnsupportedOAuthProviderException
 import com.pubcafe.api.auth.port.out.OAuthClient
 import com.pubcafe.core.domain.member.Member
-import com.pubcafe.core.domain.member.MemberRole
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +36,6 @@ class OAuthService(
         val accessToken = jwtProvider.createAccessToken(memberId, member.role)
         val refreshToken = jwtProvider.createRefreshToken(memberId)
 
-        return LoginResultDto(accessToken, refreshToken, member.role != MemberRole.NEW_MEMBER)
+        return LoginResultDto(accessToken, refreshToken, member.role)
     }
 }
