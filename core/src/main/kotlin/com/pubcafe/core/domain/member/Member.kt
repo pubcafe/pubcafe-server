@@ -1,29 +1,37 @@
-package com.pubcafe.core.entity
+package com.pubcafe.core.domain.member
 
-import com.pubcafe.core.entity.common.BaseTimeEntity
+import com.pubcafe.core.domain.common.BaseTimeEntity
 import jakarta.persistence.*
+import org.hibernate.annotations.Comment
 
 @Entity
 @Table(name = "member")
 class Member(
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
-    @Column(name = "name")
-    var name: String? = null,
+    @OneToOne(mappedBy = "member", cascade = [CascadeType.ALL], orphanRemoval = true)
+    var profile: MemberProfile? = null,
 
+    @Comment("이메일")
     @Column(name = "email", nullable = false, unique = true)
-    var email: String,
+    val email: String,
 
+    @Comment("권한")
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     var role: MemberRole
 
 ) : BaseTimeEntity() {
 
+    fun convertToMember() {
+        this.role = MemberRole.MEMBER
+    }
+
     companion object {
-        fun createNew(email: String): Member {
+        fun create(email: String): Member {
             return Member(
                 email = email,
                 role = MemberRole.NEW_MEMBER

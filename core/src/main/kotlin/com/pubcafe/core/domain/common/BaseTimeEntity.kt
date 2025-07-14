@@ -1,4 +1,4 @@
-package com.pubcafe.core.entity.common
+package com.pubcafe.core.domain.common
 
 import jakarta.persistence.Column
 import jakarta.persistence.EntityListeners

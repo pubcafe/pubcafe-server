@@ -1,18 +1,23 @@
-package com.pubcafe.api.common.config
+package com.pubcafe.api.common.security
 
+import com.pubcafe.api.auth.util.JwtProvider
+import com.pubcafe.api.common.security.filter.JwtAuthenticationFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig {
+class SecurityConfig(
+    private val jwtProvider: JwtProvider
+) {
 
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
-        http
+        return http
             .csrf { csrf -> csrf.disable() }
             .headers { it.frameOptions { frame -> frame.disable() } }
             .authorizeHttpRequests { requests ->
@@ -31,7 +36,10 @@ class SecurityConfig {
                     ).permitAll()
                     .anyRequest().authenticated()
             }
-
-        return http.build()
+            .addFilterBefore(
+                JwtAuthenticationFilter(jwtProvider),
+                UsernamePasswordAuthenticationFilter::class.java
+            )
+            .build()
     }
 }

@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @Tag(name = "auth", description = "인증")
-@RestController
 @RequestMapping("/api/auth")
+@RestController
 class AuthController(
     private val oAuthService: OAuthService
 ) {
@@ -31,7 +31,7 @@ class AuthController(
         @RequestHeader("X-OAUTH-CODE") code: String
     ): ResponseEntity<ResponseForm<LoginRes>> {
         val result: LoginResultDto = oAuthService.login(provider, code)
-        val response = LoginRes(result.accessToken, result.isSignedUp)
+        val response = LoginRes(result.accessToken, result.role)
         val cookie: ResponseCookie = JwtCookieProvider.createRefreshTokenCookie(result.refreshToken)
 
         return ResponseEntity.ok()

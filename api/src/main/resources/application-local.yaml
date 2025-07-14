@@ -9,15 +9,24 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
     properties:
       hibernate:
-        show_sql: true
+        show_sql: false
         format_sql: true
+
+  sql:
+    init:
+      mode: embedded
 
   h2:
     console:
       enabled: true
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
 
 oauth:
   client:
