@@ -1,11 +1,13 @@
 plugins {
-	id("java")
-	id("org.springframework.boot") version "3.5.0" apply false
-	id("io.spring.dependency-management") version "1.1.7" apply false
+	kotlin("jvm")
+	kotlin("kapt") apply false
+	kotlin("plugin.spring") apply false
+	kotlin("plugin.jpa") apply false
+	kotlin("plugin.allopen") apply false
 
-	kotlin("jvm") version "1.9.25" apply false
-	kotlin("plugin.spring") version "1.9.25" apply false
-	kotlin("plugin.jpa") version "1.9.25" apply false
+	id("java")
+	id("org.springframework.boot") apply false
+	id("io.spring.dependency-management")
 }
 
 allprojects {
@@ -13,17 +15,23 @@ allprojects {
 	version = "0.0.1-SNAPSHOT"
 
 	repositories {
+		gradlePluginPortal()
 		mavenCentral()
 	}
 }
 
 subprojects {
 	apply(plugin = "org.jetbrains.kotlin.jvm")
+	apply(plugin = "io.spring.dependency-management")
 
 	java {
 		toolchain {
 			languageVersion.set(JavaLanguageVersion.of(21))
 		}
+	}
+
+	kotlin {
+		jvmToolchain(21)
 	}
 
 	configurations {
@@ -34,5 +42,11 @@ subprojects {
 
 	tasks.withType<Test> {
 		useJUnitPlatform()
+	}
+
+	dependencyManagement {
+		imports {
+			mavenBom("org.springframework.boot:spring-boot-dependencies:3.5.0")
+		}
 	}
 }

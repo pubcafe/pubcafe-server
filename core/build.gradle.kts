@@ -1,14 +1,11 @@
 plugins {
+    kotlin("jvm")
     kotlin("kapt")
     kotlin("plugin.jpa")
     kotlin("plugin.allopen")
-    id("io.spring.dependency-management")
-}
 
-dependencyManagement {
-    imports {
-        mavenBom("org.springframework.boot:spring-boot-dependencies:3.5.0")
-    }
+    id("java")
+    id("io.spring.dependency-management")
 }
 
 dependencies {
@@ -23,7 +20,7 @@ dependencies {
     kapt("jakarta.persistence:jakarta.persistence-api")
 
     compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
+    kapt("org.projectlombok:lombok")
 }
 
 allOpen {
