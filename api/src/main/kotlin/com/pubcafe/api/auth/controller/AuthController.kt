@@ -5,6 +5,7 @@ import com.pubcafe.api.auth.dto.LoginResultDto
 import com.pubcafe.api.auth.model.OAuthProvider
 import com.pubcafe.api.auth.service.OAuthService
 import com.pubcafe.api.auth.util.JwtCookieProvider
+import com.pubcafe.api.common.constant.AuthConstants
 import com.pubcafe.api.common.model.ResponseCode
 import com.pubcafe.api.common.model.ResponseForm
 import io.swagger.v3.oas.annotations.Operation
@@ -27,8 +28,8 @@ class AuthController(
     @Operation(summary = "OAuth 로그인")
     @PostMapping("/login")
     fun login(
-        @RequestHeader("X-OAUTH-PROVIDER") provider: OAuthProvider,
-        @RequestHeader("X-OAUTH-CODE") code: String
+        @RequestHeader(AuthConstants.OAUTH_PROVIDER_HEADER) provider: OAuthProvider,
+        @RequestHeader(AuthConstants.OAUTH_CODE_HEADER) code: String
     ): ResponseEntity<ResponseForm<LoginRes>> {
         val result: LoginResultDto = oAuthService.login(provider, code)
         val response = LoginRes(result.accessToken, result.role)
