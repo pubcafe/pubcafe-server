@@ -10,6 +10,7 @@ import com.pubcafe.api.member.service.MemberQueryService
 import com.pubcafe.api.member.service.MemberService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -43,7 +44,7 @@ class MemberController(
     ): ResponseEntity<ResponseForm<SignUpRes>> {
         val response = memberService.signUp(loginMember.memberId, signUpReq);
 
-        return ResponseEntity.ok()
+        return ResponseEntity.status(HttpStatus.CREATED)
             .body(ResponseForm.success(ResponseCode.SIGN_UP_SUCCESS, response))
     }
 }
