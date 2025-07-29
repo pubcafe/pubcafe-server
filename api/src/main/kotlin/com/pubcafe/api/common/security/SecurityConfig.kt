@@ -24,6 +24,8 @@ class SecurityConfig(
                 requests
                     .requestMatchers(
                         "/",
+                        // rest docs
+                        "/docs/index.html",
                         // auth
                         "/api/auth/**",
                         // h2
