@@ -49,7 +49,6 @@ dependencies {
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
 	// rest docs
-	// TODO: asciidoctor 의존성 제대로 추가하기
 	testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
 	asciidoctorExt("org.springframework.restdocs:spring-restdocs-asciidoctor")
 
@@ -84,13 +83,18 @@ kotlin {
 }
 
 tasks.test {
-	outputs.dir(project.extra["snippetsDir"]!!)
+	outputs.dir(project.extra["snippetsDir"]!!)		// snippet 경로 지정
 }
 
 tasks.asciidoctor {
-	configurations(asciidoctorExt.name)
-	inputs.dir(project.extra["snippetsDir"]!!)
-	dependsOn(tasks.test)
+	dependsOn(tasks.test)							// test task를 선행
+	inputs.dir(project.extra["snippetsDir"]!!)		// snippet 경로에서 입력
+	configurations(asciidoctorExt.name)				// extension으로 adoc -> html 변환
 }
 
-// TODO: jar 파일에 포함하기
+tasks.bootJar {
+	dependsOn(tasks.asciidoctor)					// asciidoctor task 선행
+	from(tasks.asciidoctor.get().outputDir) {		// 변환된 html 파일 있는 경로
+		into("static/docs")					// resources로 복사
+	}
+}
