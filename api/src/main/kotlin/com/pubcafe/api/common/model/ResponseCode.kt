@@ -12,7 +12,7 @@ enum class ResponseCode(
     SUCCESS(HttpStatus.OK, "요청 처리를 성공했습니다."),
     GET_SUCCESS(HttpStatus.OK, "조회에 성공했습니다."),
     LOGIN_SUCCESS(HttpStatus.OK, "로그인에 성공했습니다."),
-    SIGN_UP_SUCCESS(HttpStatus.OK, "회원가입에 성공했습니다."),
+    SIGN_UP_SUCCESS(HttpStatus.CREATED, "회원가입에 성공했습니다."),
 
     /*
         실패

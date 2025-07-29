@@ -1,3 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
 oauth:
   client:
     google:
@@ -7,10 +14,14 @@ oauth:
         redirect-uri: http://localhost:8080/oauth/callback
       provider:
         uri:
-          user-info: https://www.googleapis.com/oauth2/v2/userinfo
-          token: https://oauth2.googleapis.com/token
+          user-info: http://localhost:${out.mock-webserver.port}/oauth2/v2/userinfo
+          token: http://localhost:${out.mock-webserver.port}/token
 
 jwt:
   secret-key: test-jwt-secret-key-for-testing-only
   access-expiration-time: 1800000       # 30분
   refresh-expiration-time: 604800000    # 1주
+
+out:
+  mock-webserver:
+    port: 1080
