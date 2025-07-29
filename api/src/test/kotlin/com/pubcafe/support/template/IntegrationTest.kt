@@ -15,6 +15,7 @@ import org.springframework.restdocs.RestDocumentationContextProvider
 import org.springframework.restdocs.RestDocumentationExtension
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration
 import org.springframework.test.context.ActiveProfiles
+import org.springframework.test.context.jdbc.Sql
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
@@ -23,8 +24,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.web.filter.CharacterEncodingFilter
 
 @SpringBootTest
-//@Sql(scripts = ["classpath:db/setup.sql"], executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-//@Sql(scripts = ["classpath:db/teardown.sql"], executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+@Sql(scripts = ["classpath:db/setup.sql"], executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(scripts = ["classpath:db/teardown.sql"], executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @AutoConfigureRestDocs
