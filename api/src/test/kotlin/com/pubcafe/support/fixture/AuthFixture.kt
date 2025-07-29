@@ -8,6 +8,7 @@ import com.pubcafe.api.common.infra.oauth.google.GoogleUserInfo
 object AuthFixture {
 
     const val FAKE_AUTH_CODE = "4/0AUJR-x4xWQ792pRQa1i2FSjobPsBDLrwI3Im_cLB7lK_AvwyIR4DBiCZwmLIfavV5N25HQ"
+    const val FAKE_JWT_TOKEN = ""
 
     /**
      * mock server json response
